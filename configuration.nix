@@ -52,8 +52,8 @@
 
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
   
 
   # Configure keymap in X11
@@ -83,11 +83,6 @@
   environment.systemPackages = with pkgs; [
   	wget
 	xorg.xkill
-	xfce.xfce4-power-manager
- 	xfce.xfce4-battery-plugin
-	xfce.xfce4-whiskermenu-plugin
-        ulauncher
-	plank
 	git
         vim
         atom
@@ -96,10 +91,14 @@
 	alacritty
         vlc
         firefox
+	rPackages.telegram
 	libreoffice-fresh
 	pcmanfm
 	gparted
 	spotify
+	# Plasma
+	redshift-plasma-applet
+	kdeconnect
 	# window managers and related stuff
 	picom
 	rofi
@@ -133,7 +132,8 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.05"; # Did you read the comment?
 
 }
+
 
