@@ -10,13 +10,15 @@
       ./hardware-configuration.nix
     ];
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;  # Enables NetworkManager.
 
   # Set your time zone.
   time.timeZone = "Asia/Yekaterinburg";
@@ -31,30 +33,22 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  
-  programs.fish.enable = true;
-  programs.adb.enable = true;
 
-  # enable unfree packages
-  nixpkgs.config.allowUnfree = true;	
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;	
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-  	font = "Lat2-Terminus16";
-  	keyMap = "us";
+     font = "Lat2-Terminus16";
+     keyMap = "us";
   };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  
+  # Enable DE and wm
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.windowManager.openbox.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -70,43 +64,36 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  nix.allowedUsers = [ "*" ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.michaell = {
-  	isNormalUser = true;
-     	extraGroups = [ "wheel" "adbusers" "networkmanager" ]; # Enable ‘sudo’ for the user.
-	shell = pkgs.fish;
+    isNormalUser = true;
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  	wget
-	xorg.xkill
-	git
-        vim
-        atom
+  	vim
 	emacs
-	fish
+	atom
+	git
+  	wget
 	alacritty
-        vlc
-        firefox
-	rPackages.telegram
+	fish
+	htop
+  	firefox
+	chromium
+	tdesktop
+	vlc
 	libreoffice-fresh
-	pcmanfm
-	gparted
-	spotify
-	# Plasma
-	redshift-plasma-applet
-	kdeconnect
-	# window managers and related stuff
+	jetbrains.pycharm-community
+	# wm
+	polybar
 	picom
 	rofi
   ];
-  fonts.fonts = with pkgs; [
-  	iosevka
-	roboto
-  ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -135,5 +122,6 @@
   system.stateVersion = "21.05"; # Did you read the comment?
 
 }
+
 
 
