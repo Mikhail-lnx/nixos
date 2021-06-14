@@ -12,13 +12,13 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Enables NetworkManager.
+  networking.networkmanager.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
   time.timeZone = "Asia/Yekaterinburg";
@@ -26,9 +26,8 @@
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s20u2.useDHCP = true;
-  networking.interfaces.enp4s0.useDHCP = true;
+  #networking.useDHCP = false;
+  #networking.interfaces.enp4s0.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -43,15 +42,14 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-
-  # Enable DE and wm
+  #services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.windowManager.openbox.enable = true;
+  services.xserver.windowManager.awesome.enable = true;
+  
 
   # Configure keymap in X11
-  services.xserver.layout = "us";
+  services.xserver.layout = "pl,ru";
+  services.xserver.xkbOptions = "grp:alt_shift_toggle,grp_led:scroll";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
@@ -66,16 +64,17 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.michaell = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+     isNormalUser = true;
+     shell = pkgs.fish;
+     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  	vim
+        vim
 	emacs
+	micro
 	atom
 	git
   	wget
@@ -85,6 +84,7 @@
   	firefox
 	chromium
 	tdesktop
+	discord
 	vlc
 	libreoffice-fresh
 	jetbrains.pycharm-community
@@ -122,6 +122,4 @@
   system.stateVersion = "21.05"; # Did you read the comment?
 
 }
-
-
 
