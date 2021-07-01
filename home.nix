@@ -11,31 +11,43 @@
 
   home.packages = [
       pkgs.kitty
+      pkgs.micro
+      pkgs.unzip
+      pkgs.rofi
+      pkgs.git
       pkgs.neovim
+      pkgs.emacs
       pkgs.scrot
-	  pkgs.pfetch
-	  pkgs.python39
-	  pkgs.gutenprint
+      pkgs.pfetch
+      pkgs.python39 
+      pkgs.gutenprint
       pkgs.pavucontrol
-	  pkgs.qbittorrent
-	  pkgs.feh
-	  pkgs.xfce.thunar
-	  pkgs.rustc
-	  pkgs.cargo
-	  pkgs.spotify
-	  pkgs.python39Packages.nose
-	  pkgs.python39Packages.pytest
-	  pkgs.pypy3
-	  pkgs.klavaro
-	  pkgs.gimp
-	  pkgs.etcher
+      pkgs.qbittorrent
+      pkgs.feh
+      pkgs.xfce.thunar
+      pkgs.rustc
+      pkgs.cargo
+      pkgs.spotify
+      pkgs.tdesktop
+      pkgs.anki
+      pkgs.vlc
+      pkgs.python39Packages.nose
+      pkgs.python39Packages.pytest
+      pkgs.klavaro
+      pkgs.gimp
+      pkgs.etcher
+      pkgs.fish
+      pkgs.htop
     ];
 
     
   services.picom = {
   	enable = true;
+  	activeOpacity = "1.0";
+  	inactiveOpacity = "0.8";
+  	backend = "glx";
   	shadow = true;
-  	shadowOpacity = "0.75";
+  	shadowOpacity = "0.75";	
   };
 
 
