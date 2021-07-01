@@ -48,7 +48,7 @@
   
 
   # Configure keymap in X11
-  services.xserver.layout = "pl,ru";
+  services.xserver.layout = "us,ru";
   services.xserver.xkbOptions = "grp:alt_shift_toggle,grp_led:scroll";
   # services.xserver.xkbOptions = "eurosign:e";
 
@@ -73,25 +73,9 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
         vim
-	emacs
-	micro
-	atom
-	git
-  	wget
-	alacritty
-	fish
-	htop
-  	firefox
-	chromium
-	tdesktop
-	discord
-	vlc
-	libreoffice-fresh
-	jetbrains.pycharm-community
-	# wm
-	polybar
-	picom
-	rofi
+	wget
+	firefox
+	kitty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
